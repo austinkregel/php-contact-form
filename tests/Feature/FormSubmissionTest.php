@@ -3,13 +3,19 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Mail\Message;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Traits\InteractsWithContactAndAssertStatus;
 
 class FormSubmissionTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, InteractsWithContactAndAssertStatus;
     
+    /**
+     * @var array
+     */
     protected $contactData = [
         'message' => 'This is a message',
         'name' => 'John Smith',
@@ -17,14 +23,13 @@ class FormSubmissionTest extends TestCase
         'number' => '989-493-4690',
     ];
     
+    
     /**
      * Make sure we can post to the contact form
      */
     public function test_if_we_can_submit_the_form()
     {
-        $response = $this->json('POST', '/api/contact', $this->contactData);
-
-        $response->assertStatus(200);
+        $this->touchApiAndAssert($this->contactData);
     }
     
     /**
@@ -32,9 +37,7 @@ class FormSubmissionTest extends TestCase
      */
     public function test_if_we_can_submit_the_form_and_we_are_missing_the_number()
     {
-        $response = $this->json('POST', '/api/contact', array_only($this->contactData, ['message', 'name', 'email']));
-
-        $response->assertStatus(200);
+        $this->touchApiAndAssert(array_only($this->contactData, ['message', 'name', 'email']));
 
         $this->assertDatabaseMissing('messages', ['number' => '989-493-4690']);
     }
@@ -50,9 +53,7 @@ class FormSubmissionTest extends TestCase
             ]
         );
         
-        $response = $this->json('POST', '/api/contact', $contact);
-
-        $response->assertStatus(422);
+        $this->touchApiAndAssert($contact, 422);
         
         $this->assertDatabaseMissing('messages', $contact);
     }
@@ -62,10 +63,24 @@ class FormSubmissionTest extends TestCase
      */
     public function test_if_we_can_see_the_number_in_the_DB()
     {
-        $response = $this->json('POST', '/api/contact', $this->contactData);
-
-        $response->assertStatus(200);
+        $this->touchApiAndAssert($this->contactData);
         
         $this->assertDatabaseHas('messages', $this->contactData);
+    }
+    
+    /**
+     * Make sure we send the mail
+     */
+    public function test_if_we_can_send_an_email() 
+    {
+        Mail::fake();
+
+        $response = $this->touchApiAndAssert($this->contactData);
+
+        $message = $response->json();
+        
+        Mail::assertSent(Message::class, function ($mail) use ($message) {
+            return $mail->message->id === $message['id'];
+        });
     }
 }
