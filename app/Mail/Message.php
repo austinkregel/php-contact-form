@@ -6,13 +6,13 @@ use App\Message as Model;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class Message extends Mailable
 {
     use Queueable, SerializesModels;
 
     public $message;
+
     /**
      * Create a new message instance.
      *
@@ -22,7 +22,6 @@ class Message extends Mailable
     {
         $this->message = $message;
     }
-
 
     /**
      * Build the message.
@@ -34,7 +33,7 @@ class Message extends Mailable
         return $this->from($this->message->email)
             ->markdown('mail.message')
             ->with([
-                'message' => $this->message
+                'message' => $this->message,
             ]);
     }
 }
