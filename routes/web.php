@@ -14,3 +14,28 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+// Disable registration page
+Route::get('register', function () {
+    abort(404);
+});
+
+Route::post('register', function () {
+    abort(404);
+});
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/force-login', function () {
+    $user = App\User::first();
+
+    if (empty($user)) {
+        $user = factory(App\User::class)->create();
+    }
+
+    auth()->login($user);
+
+    return redirect(route('home'));
+});

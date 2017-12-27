@@ -13,3 +13,31 @@
 #app {
     height: 100%;
 }
+
+.with-nav {
+    // Use 60px for the navbar offset, and 1 rem margin for good looks
+    margin-top: calc(60px + 1rem);
+}
+.text-black {
+    color: #22292F;
+}
+
+.panel-grey {
+    border-color: #d0d0d0;
+    & .panel-heading {
+        border-color: #d0d0d0;
+        background-color: #efefef;
+    }
+}
+.center-the-dang-thing {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.shadow-window {
+    background: white;
+    box-shadow:  0 2px 4px 0 rgba(0,0,0,0.10);
+    padding: 1rem;
+}
