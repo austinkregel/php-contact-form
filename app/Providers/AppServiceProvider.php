@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         \Schema::defaultStringLength(191);
-        
+
         // Add 2 blade directives to dry up the HTML a little bit.
         Blade::if('route', function ($route) {
             return request()->is($route);
