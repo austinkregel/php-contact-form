@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Message;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -25,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $messages = Message::paginate(15);
-        
+
         return view('home', compact('messages'));
     }
 }
