@@ -2,9 +2,15 @@
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
         Menu <i class="fa fa-bars"></i>
     </button>
+    @guest
     <a class="navbar-brand page-scroll" href="#page-top">
         <i class="fa fa-play-circle"></i> <span class="light">Dealer</span> Inspire Challenge
     </a>
+    @else
+    <a class="navbar-brand page-scroll" href="/">
+        <i class="fa fa-play-circle"></i> <span class="light">Dealer</span> Inspire Challenge
+    </a>
+    @endguest
 </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
