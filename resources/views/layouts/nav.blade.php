@@ -7,7 +7,7 @@
         <i class="fa fa-play-circle"></i> <span class="light">Dealer</span> Inspire Challenge
     </a>
     @else
-    <a class="navbar-brand page-scroll" href="/">
+    <a class="navbar-brand page-scroll" href="/home">
         <i class="fa fa-play-circle"></i> <span class="light">Dealer</span> Inspire Challenge
     </a>
     @endguest
