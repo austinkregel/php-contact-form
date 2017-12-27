@@ -32,38 +32,12 @@
 
 </head>
 
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" @notroute('/') style="background: #f5f5f5;" @endnotroute >
 
     <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-custom navbar-fixed-top @notroute('/') top-nav-collapse @endnotroute" role="navigation">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
-                    Menu <i class="fa fa-bars"></i>
-                </button>
-                <a class="navbar-brand page-scroll" href="#page-top">
-                    <i class="fa fa-play-circle"></i> <span class="light">Dealer</span> Inspire Challenge
-                </a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse navbar-right navbar-main-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#about">About</a>
-                    </li> 
-                    <li>
-                        <a class="page-scroll" href="#coffee">Coffee</a>
-                    </li>
-                    <li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
+            @include('layouts.nav')
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
@@ -82,8 +56,9 @@
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEDq7IZzFfqe_HGX2DIsUAIFWnjhuU86U&sensor=false"></script>
 
     <!-- Theme JavaScript -->
+    @route('/')
     <script src="/js/grayscale.min.js"></script>
-
+    @endroute
 </body>
 
 </html>
